@@ -1,0 +1,14 @@
+__pycache__
+/venv
+
+bazel-*
+MODULE.bazel.lock
+
+node_modules
+.idea
+available_tests.txt
+.ipynb_checkpoints
+.vscode
+
+/docs/build
+/dist
