@@ -38,5 +38,6 @@ dev_pip.parse(
 use_repo(dev_pip, "pypi")
 
 register_toolchains(
-    "//thirdparty/rules_proto_grpc:prebuilt_protoc_toolchain_with_grpc_plugin",
+    # Note additional _toolchain suffix here or just use `:all` to avoid this mistake.
+    "//thirdparty/rules_proto_grpc:prebuilt_protoc_toolchain_with_grpc_plugin_toolchain",
 )
