@@ -1,4 +1,5 @@
 load("@rules_proto_grpc//:defs.bzl", "proto_plugin")
+load("@rules_proto//proto:proto_toolchain.bzl", "proto_toolchain")
 
 proto_plugin(
     name = "proto_plugin",
@@ -18,4 +19,9 @@ proto_plugin(
     outputs = ["{protopath|python_grpc}_pb2_grpc.py"],
     protoc_plugin_name = "grpc_python",
     visibility = ["//visibility:public"],
+)
+
+proto_toolchain(
+    name = "prebuilt_protoc_toolchain_with_grpc_plugin",
+    proto_compiler = "//thirdparty/grpcio_tools:main",
 )

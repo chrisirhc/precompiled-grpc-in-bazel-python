@@ -1,3 +1,4 @@
+bazel_dep(name = "rules_proto", version = "7.0.1")
 bazel_dep(name = "rules_proto_grpc", version = "5.0.1")
 bazel_dep(name = "rules_proto_grpc_python", version = "5.0.1")
 
@@ -35,3 +36,7 @@ dev_pip.parse(
     requirements_lock = "//tools:requirements.txt",
 )
 use_repo(dev_pip, "pypi")
+
+register_toolchains(
+    "//thirdparty/rules_proto_grpc:prebuilt_protoc_toolchain_with_grpc_plugin",
+)
