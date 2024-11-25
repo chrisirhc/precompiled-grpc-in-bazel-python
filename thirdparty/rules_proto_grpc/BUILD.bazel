@@ -16,6 +16,6 @@ proto_plugin(
         "google/protobuf",
     ],
     outputs = ["{protopath|python_grpc}_pb2_grpc.py"],
-    tool = "@grpc//src/compiler:grpc_python_plugin",
+    protoc_plugin_name = "grpc_python",
     visibility = ["//visibility:public"],
 )
