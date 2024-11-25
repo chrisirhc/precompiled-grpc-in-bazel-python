@@ -26,3 +26,11 @@ python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.11")
 
 bazel_dep(name = "rules_uv", version = "0.41.0")
+
+dev_pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+dev_pip.parse(
+    hub_name = "pypi",
+    python_version = "3.11",
+    requirements_lock = "//tools:requirements.txt",
+)
+use_repo(dev_pip, "pypi")
