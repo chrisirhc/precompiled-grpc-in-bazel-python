@@ -8,3 +8,6 @@ This repository is an example of how to use a precompiled gRPC protobuf plugin f
 ## Approach
 * Use the compiled gRPC plugin that's built into the executable in grpcio-tools
 * Follow the approach laid out in https://github.com/aspect-build/toolchains_protoc for setting up precompiled tooling for protoc.
+
+### Alternative approaches
+* 
