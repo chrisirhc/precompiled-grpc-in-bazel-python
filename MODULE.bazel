@@ -1,4 +1,4 @@
-bazel_dep(name = "rules_proto", version = "7.0.1")
+bazel_dep(name = "rules_proto", version = "7.0.2")
 bazel_dep(name = "rules_proto_grpc", version = "5.0.1")
 bazel_dep(name = "rules_proto_grpc_python", version = "5.0.1")
 
