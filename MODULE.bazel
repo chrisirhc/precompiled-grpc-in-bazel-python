@@ -1,7 +1,6 @@
 bazel_dep(name = "rules_proto", version = "7.0.2")
 bazel_dep(name = "rules_proto_grpc", version = "5.0.1")
 bazel_dep(name = "rules_proto_grpc_python", version = "5.0.1")
-
 bazel_dep(name = "rules_proto_grpc_example_protos", version = "0.0.0.rpg.version.placeholder")
 local_path_override(
     module_name = "rules_proto_grpc_example_protos",
@@ -16,6 +15,7 @@ single_version_override(
 )
 
 bazel_dep(name = "grpc", version = "1.65.0")
+
 # https://github.com/rules-proto-grpc/rules_proto_grpc/issues/341#issuecomment-2265154147
 single_version_override(
     module_name = "grpc-java",
@@ -42,3 +42,7 @@ register_toolchains(
     "//thirdparty/rules_proto_grpc:prebuilt_protoc_toolchain_with_grpc_plugin_toolchain",
     "//thirdparty/rules_proto_grpc:prebuilt_protoc_toolchain_with_grpc_plugin_proto_toolchain",
 )
+
+# For formatting rules
+bazel_dep(name = "aspect_rules_lint", version = "1.0.3")
+bazel_dep(name = "buildifier_prebuilt", version = "6.3.3")
