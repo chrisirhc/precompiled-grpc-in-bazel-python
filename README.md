@@ -10,4 +10,4 @@ This repository is an example of how to use a precompiled gRPC protobuf plugin f
 * Follow the approach laid out in https://github.com/aspect-build/toolchains_protoc for setting up precompiled tooling for protoc.
 
 ### Alternative approaches
-* 
+* Request for grpc to publish the compiled plugin and use it once it exists: https://github.com/grpc/grpc/issues/38078
