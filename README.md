@@ -2,10 +2,10 @@
 This repository is an example of how to use a precompiled gRPC protobuf plugin for compiling Python gRPC stubs.
 
 ## Why do this?
-* Faster builds
+* Faster cold start builds (~29X speed-up, see below)
   * Avoid C++ compilation of dependencies when not editing any C++ files
 
-| Typical compile (with C++ compilation) | Precompiled Binary |
+| Typical compile (with C++ compilation), 99s | Precompiled Binary, 3.3s |
 | - | - |
 | ![typical compilation](./docs/compile-with-cpp.svg) | ![compilation using precompiled binary](./docs/compile-with-precompiled-binary.svg)
 
