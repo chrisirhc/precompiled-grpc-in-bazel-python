@@ -35,7 +35,7 @@ This configuration also works with GitHub Codespaces:
 
 ## What's Included
 
-- **Base Image**: Ubuntu 22.04
+- **Base Image**: Alpine 3.19
 - **Python**: 3.11 (from devcontainers features)
 - **Bazel**: Installed via bazelisk (from devcontainers-community features)
 - **Bazel Cache**: Persistent cache mounted at `.bazel-cache`
