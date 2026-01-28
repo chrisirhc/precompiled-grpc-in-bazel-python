@@ -1,0 +1,17 @@
+{
+  "name": "Bazel Python gRPC Development",
+  "image": "mcr.microsoft.com/devcontainers/base:alpine-3.19",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers-community/features/bazel:1": {}
+  },
+
+  "remoteUser": "vscode",
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/.bazel-cache,target=/home/vscode/.cache/bazel,type=bind,consistency=cached"
+  ]
+}
