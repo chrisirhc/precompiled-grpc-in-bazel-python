@@ -29,10 +29,8 @@ The easiest way to get started is using the provided [Dev Container](https://con
    ```
 
 The dev container includes:
-- ✅ Bazelisk (automatically uses the correct Bazel version)
+- ✅ Bazel (via bazelisk, automatically uses the correct Bazel version)
 - ✅ Python 3.11
-- ✅ All necessary build tools
-- ✅ VS Code extensions for Bazel and Python development
 - ✅ Persistent Bazel cache for faster rebuilds
 
 ## Manual Setup

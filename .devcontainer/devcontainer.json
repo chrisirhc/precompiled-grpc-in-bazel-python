@@ -6,36 +6,7 @@
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.11"
     },
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": true,
-      "configureZshAsDefaultShell": true,
-      "installOhMyZsh": true
-    },
-    "ghcr.io/devcontainers/features/git:1": {
-      "version": "latest"
-    }
-  },
-
-  "postCreateCommand": "bash .devcontainer/setup.sh",
-
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "BazelBuild.vscode-bazel",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "zxh404.vscode-proto3",
-        "editorconfig.editorconfig"
-      ],
-      "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.linting.enabled": true,
-        "editor.formatOnSave": true,
-        "[python]": {
-          "editor.defaultFormatter": "ms-python.python"
-        }
-      }
-    }
+    "ghcr.io/devcontainers-community/features/bazel:1": {}
   },
 
   "remoteUser": "vscode",

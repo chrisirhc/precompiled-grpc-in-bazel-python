@@ -1,17 +1,1 @@
-# Enable proto toolchain resolution
 common --incompatible_enable_proto_toolchain_resolution
-
-# Enable Bzlmod for modern dependency management
-common --enable_bzlmod
-
-# Build configuration
-build --show_timestamps
-build --announce_rc
-
-# Test configuration
-test --test_output=errors
-test --test_summary=detailed
-
-# Output configuration for better readability
-common --color=yes
-common --show_progress_rate_limit=0.5
