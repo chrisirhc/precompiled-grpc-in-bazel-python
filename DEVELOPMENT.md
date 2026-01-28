@@ -8,15 +8,40 @@ This repository demonstrates how to use a precompiled gRPC protobuf plugin for c
 
 ## Prerequisites
 
-- **Bazel**: Version 8.0.0 or later (specified in `.bazelversion`)
+- **Bazel**: Version 8.5.1 or later (specified in `.bazelversion`)
 - **Python**: Version 3.11 (managed by rules_python)
 - **Operating System**: Linux, macOS, or Windows (with appropriate tooling)
 
-## Setup
+## Quick Start with Dev Container (Recommended)
+
+The easiest way to get started is using the provided [Dev Container](https://containers.dev/):
+
+1. **Prerequisites**: Install [Docker](https://www.docker.com/products/docker-desktop) and [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+2. **Open in Container**: 
+   - Open this repository in VS Code
+   - Press `F1` and select "Dev Containers: Reopen in Container"
+   - Wait for the container to build and configure (first time only)
+
+3. **Start Developing**: Everything is pre-configured! Run:
+   ```bash
+   bazel build //...
+   ```
+
+The dev container includes:
+- ✅ Bazelisk (automatically uses the correct Bazel version)
+- ✅ Python 3.11
+- ✅ All necessary build tools
+- ✅ VS Code extensions for Bazel and Python development
+- ✅ Persistent Bazel cache for faster rebuilds
+
+## Manual Setup
+
+If you prefer not to use the dev container, follow these steps:
 
 ### 1. Install Bazel
 
-The project requires Bazel 8.0.0 or later. The recommended way to install Bazel is using [Bazelisk](https://github.com/bazelbuild/bazelisk), which automatically downloads and uses the correct version specified in `.bazelversion`.
+The project requires Bazel 8.5.1 or later. The recommended way to install Bazel is using [Bazelisk](https://github.com/bazelbuild/bazelisk), which automatically downloads and uses the correct version specified in `.bazelversion`.
 
 **Install Bazelisk:**
 ```bash
