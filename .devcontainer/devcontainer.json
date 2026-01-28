@@ -28,7 +28,7 @@
         "editorconfig.editorconfig"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python3.11",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.linting.enabled": true,
         "editor.formatOnSave": true,
         "[python]": {

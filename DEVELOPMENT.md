@@ -101,10 +101,10 @@ This project uses `aspect_rules_lint` and `buildifier_prebuilt` for code formatt
 
 ```bash
 # Format all BUILD files
-bazel run //:format
+bazel run //tools/format:format
 
 # Check formatting without making changes
-bazel run //:format.check
+bazel run //tools/format:format.check
 ```
 
 ## Dependency Management
@@ -141,7 +141,7 @@ Bazel dependencies are managed in `MODULE.bazel` using Bzlmod (Bazel's modern de
 
 ```
 .
-├── .bazelversion           # Locks Bazel version to 8.0.0
+├── .bazelversion           # Locks Bazel version to 8.5.1
 ├── .bazelrc                # Bazel configuration flags
 ├── MODULE.bazel            # Bazel module dependencies (Bzlmod)
 ├── BUILD.bazel             # Root build file with gRPC compilation targets
@@ -207,5 +207,5 @@ git diff tools/requirements.txt
 When making changes:
 1. Follow the existing code style and structure
 2. Update this DEVELOPMENT.md if you change the build process or dependencies
-3. Run formatters before committing: `bazel run //:format`
+3. Run formatters before committing: `bazel run //tools/format:format`
 4. Ensure all tests pass: `bazel test //...`
