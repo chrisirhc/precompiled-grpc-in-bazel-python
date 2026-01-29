@@ -1,7 +1,19 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 
+# Formatting and linting for Starlark/BUILD files using buildifier
+# See: https://github.com/aspect-build/rules_lint/blob/main/docs/formatting.md
+#
+# Usage:
+#   bazel run //tools/format         # Format and fix lint issues
+#   bazel run //tools/format:format.check  # Check without modifying (for CI)
+#
+# Or from the root (via alias):
+#   bazel run //:format
 format_multirun(
     name = "format",
     starlark = "@buildifier_prebuilt//:buildifier",
+    # Enable buildifier linting in addition to formatting
+    starlark_check_args = ["--lint=warn"],
+    starlark_fix_args = ["--lint=fix"],
     visibility = ["//visibility:public"],
 )

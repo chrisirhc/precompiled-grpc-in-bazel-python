@@ -44,5 +44,5 @@ register_toolchains(
 )
 
 # For formatting rules
-bazel_dep(name = "aspect_rules_lint", version = "1.0.3")
+bazel_dep(name = "aspect_rules_lint", version = "2.0.0")
 bazel_dep(name = "buildifier_prebuilt", version = "6.3.3")
