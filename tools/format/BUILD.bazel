@@ -1,7 +1,30 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
 
 format_multirun(
     name = "format",
     starlark = "@buildifier_prebuilt//:buildifier",
     visibility = ["//visibility:public"],
+)
+
+# Buildifier targets with linting support
+# Use "bazel run //tools/format:buildifier" to format and fix lint issues
+buildifier(
+    name = "buildifier",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "fix",
+    mode = "fix",
+)
+
+# Use "bazel run //tools/format:buildifier.check" for CI checks
+# This will report formatting issues and lint warnings without modifying files
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
 )

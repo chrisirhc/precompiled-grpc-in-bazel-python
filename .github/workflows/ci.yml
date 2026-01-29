@@ -22,11 +22,11 @@ jobs:
           disk-cache: ${{ github.workflow }}
           repository-cache: true
 
+      - name: Lint and check BUILD file formatting (buildifier)
+        run: bazel run //tools/format:buildifier.check
+
       - name: Build all targets
         run: bazel build //...
 
       - name: Test all targets
         run: bazel test //... --test_output=errors
-
-      # TODO: Add buildifier format check step once we determine the proper
-      # approach for running buildifier in CI (see issue for options)

@@ -95,7 +95,21 @@ bazel test --test_output=all //...
 
 ## Code Formatting and Linting
 
-This project uses `aspect_rules_lint` and `buildifier_prebuilt` for code formatting.
+This project uses `aspect_rules_lint` and `buildifier_prebuilt` for BUILD file formatting and linting.
+
+### Quick Commands
+
+```bash
+# Format and fix lint issues in all BUILD/Starlark files
+bazel run //tools/format:buildifier
+
+# Check formatting and lint without making changes (used in CI)
+bazel run //tools/format:buildifier.check
+```
+
+### Alternative Format Commands
+
+The following targets use `format_multirun` for broader formatting support:
 
 ```bash
 # Format all BUILD files
@@ -104,6 +118,15 @@ bazel run //tools/format:format
 # Check formatting without making changes
 bazel run //tools/format:format.check
 ```
+
+### About Buildifier
+
+[Buildifier](https://github.com/bazelbuild/buildtools/tree/master/buildifier) is the standard formatter and linter for Bazel BUILD and `.bzl` files. It enforces consistent style and catches common issues like:
+
+- Unused load statements
+- Undocumented public functions
+- Deprecated function usage
+- Incorrect package ordering
 
 ## Dependency Management
 
@@ -205,5 +228,6 @@ git diff tools/requirements.txt
 When making changes:
 1. Follow the existing code style and structure
 2. Update this DEVELOPMENT.md if you change the build process or dependencies
-3. Run formatters before committing: `bazel run //tools/format:format`
+3. Run formatters and linters before committing: `bazel run //tools/format:buildifier`
 4. Ensure all tests pass: `bazel test //...`
+5. Verify lint checks pass: `bazel run //tools/format:buildifier.check`
