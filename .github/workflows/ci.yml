@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bazel
+        uses: bazel-contrib/setup-bazel@0.9.1
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          repository-cache: true
+
+      - name: Build all targets
+        run: bazel build //...
+
+      - name: Test all targets
+        run: bazel test //... --test_output=errors || true
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bazel
+        uses: bazel-contrib/setup-bazel@0.9.1
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}-format
+          repository-cache: true
+
+      - name: Check BUILD file formatting
+        run: |
+          bazel run //tools/format:buildifier.check
