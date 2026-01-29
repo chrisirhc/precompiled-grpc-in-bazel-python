@@ -23,7 +23,7 @@ jobs:
           repository-cache: true
 
       - name: Lint and check BUILD file formatting (buildifier)
-        run: bazel run //tools/format:buildifier.check
+        run: bazel run //tools/format:format.check
 
       - name: Build all targets
         run: bazel build //...
