@@ -26,7 +26,7 @@ def filter_unsupported_flags(args):
     filtered_args = []
     skip_next = False
     
-    for i, arg in enumerate(args):
+    for arg in args:
         if skip_next:
             skip_next = False
             continue

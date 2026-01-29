@@ -7,9 +7,10 @@ local_path_override(
     path = "modules/example_protos",
 )
 
-# Use wrapper script to filter out --option_dependencies flag
-# rules_proto 7.x uses --option_dependencies which requires protoc 32.0+
-# but grpcio-tools bundles protoc ~28.x. The wrapper script filters this flag.
+# Use wrapper script to filter out unsupported protoc flags
+# rules_proto 7.x uses --option_dependencies and --option_dependencies_violation_msg
+# which require protoc 32.0+, but grpcio-tools bundles protoc ~28.x.
+# The wrapper script filters out these unsupported flags.
 single_version_override(
     module_name = "toolchains_protoc",
     version = "0.6.1",
