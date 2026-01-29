@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
 jobs:
   build:
     # Note: GitHub Actions doesn't offer ubuntu-slim; ubuntu-latest is the standard runner
