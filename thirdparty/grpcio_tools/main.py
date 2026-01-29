@@ -10,36 +10,50 @@ These flags were introduced in protoc 32.0 and are used by rules_proto 7.x.
 """
 
 import re
-import subprocess
 import sys
 import runpy
 
 
 def get_protoc_version():
-    """Get the protoc version from grpc_tools.
+    """Get the protoc version from grpc_tools package metadata.
+    
+    The protoc version corresponds to the protobuf version bundled with grpcio-tools.
+    For example, protobuf 5.28.3 means protoc version 28.3.
     
     Returns:
         tuple: (major, minor, patch) version numbers, or None if cannot determine
     """
     try:
-        # Import grpc_tools to get the protoc version
-        import grpc_tools.protoc
+        # Try importlib.metadata first (Python 3.8+)
+        try:
+            from importlib.metadata import version
+            protobuf_version = version('protobuf')
+        except ImportError:
+            # Fallback to pkg_resources for older Python versions
+            import pkg_resources
+            protobuf_version = pkg_resources.get_distribution('protobuf').version
         
-        # Try to get version by running protoc --version
-        # We need to temporarily capture the output
-        result = subprocess.run(
-            [sys.executable, '-m', 'grpc_tools.protoc', '--version'],
-            capture_output=True,
-            text=True,
-            timeout=5
-        )
-        
-        # Parse version from output like "libprotoc 28.3" or "libprotoc 32.0"
-        version_match = re.search(r'libprotoc\s+(\d+)\.(\d+)', result.stdout)
+        # Parse version string like "5.28.3" or "28.3"
+        # The major version of protobuf 5.x.x corresponds to protoc 2x.x
+        # protobuf 5.28.3 -> protoc 28.3
+        version_match = re.match(r'^(\d+)\.(\d+)\.(\d+)', protobuf_version)
         if version_match:
             major = int(version_match.group(1))
             minor = int(version_match.group(2))
-            return (major, minor, 0)
+            patch = int(version_match.group(3))
+            
+            # Convert protobuf version to protoc version
+            # protobuf 5.x.y -> protoc 2x.y (e.g., 5.28.3 -> 28.3)
+            # protobuf 32.x.y -> protoc 32.x.y (future versions)
+            if major == 5:
+                protoc_major = minor
+                protoc_minor = patch
+            else:
+                # For protobuf 32+, version matches directly
+                protoc_major = major
+                protoc_minor = minor
+            
+            return (protoc_major, protoc_minor, 0)
     except Exception:
         pass
     
