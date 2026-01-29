@@ -10,7 +10,6 @@ permissions:
   contents: read
 jobs:
   build:
-    # Note: GitHub Actions doesn't offer ubuntu-slim; ubuntu-latest is the standard runner
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,5 +28,5 @@ jobs:
       - name: Test all targets
         run: bazel test //... --test_output=errors
 
-      # TODO(#6): Add buildifier format check step once we determine the proper
+      # TODO: Add buildifier format check step once we determine the proper
       # approach for running buildifier in CI (see issue for options)
