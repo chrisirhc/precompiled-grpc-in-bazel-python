@@ -1,10 +1,9 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
-# Wrapper that filters out unsupported protoc flags before calling grpcio-tools protoc
+# Wrapper that filters out unsupported protoc flags for legacy protoc versions
 py_binary(
     name = "main",
-    srcs = ["protoc_wrapper.py"],
-    main = "protoc_wrapper.py",
+    srcs = ["main.py"],
     visibility = ["//visibility:public"],
     deps = [
         "@pypi//grpcio_tools",
