@@ -32,13 +32,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Bazel
-        uses: bazel-contrib/setup-bazel@0.9.1
-        with:
-          bazelisk-cache: true
-          disk-cache: ${{ github.workflow }}-format
-          repository-cache: true
-
       - name: Check BUILD file formatting
-        run: |
-          bazel run //tools/format:buildifier.check
+        uses: keith/buildifier-action@v1
+        with:
+          args: --mode=check --lint=warn -r .
