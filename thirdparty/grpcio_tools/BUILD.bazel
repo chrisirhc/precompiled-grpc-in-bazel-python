@@ -1,5 +1,6 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
+# Wrapper that filters out unsupported protoc flags for legacy protoc versions
 py_binary(
     name = "main",
     srcs = ["main.py"],

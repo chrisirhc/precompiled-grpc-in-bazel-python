@@ -16,7 +16,9 @@ proto_plugin(
     exclusions = [
         "google/protobuf",
     ],
-    outputs = ["{protopath|python_grpc}_pb2_grpc.py"],
+    # slight differences from python_grpc
+    # see https://github.com/rules-proto-grpc/rules_proto_grpc/commit/dc892487c12ef6aad5cc04261d24cd0d9f0bdfbb
+    outputs = ["{protopath|python}_pb2_grpc.py"],
     protoc_plugin_name = "grpc_python",
     visibility = ["//visibility:public"],
 )

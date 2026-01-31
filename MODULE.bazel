@@ -1,20 +1,22 @@
-bazel_dep(name = "rules_proto", version = "7.0.2")
-bazel_dep(name = "rules_proto_grpc", version = "5.0.1")
-bazel_dep(name = "rules_proto_grpc_python", version = "5.0.1")
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_proto_grpc", version = "5.8.0")
+bazel_dep(name = "rules_proto_grpc_python", version = "5.8.0")
 bazel_dep(name = "rules_proto_grpc_example_protos", version = "0.0.0.rpg.version.placeholder")
 local_path_override(
     module_name = "rules_proto_grpc_example_protos",
     path = "modules/example_protos",
 )
 
-# Upgrade this to for toolchains_protoc to support rules_proto@7 https://github.com/aspect-build/toolchains_protoc/pull/30
-# Due to https://github.com/bazelbuild/rules_python/commit/155efce562f14d46530fb5bec698a11e2ee889f5
+# Use wrapper script to filter out unsupported protoc flags
+# rules_proto 7.x uses --option_dependencies and --option_dependencies_violation_msg
+# which require protoc 32.0+, but grpcio-tools bundles protoc ~28.x.
+# The wrapper script filters out these unsupported flags.
 single_version_override(
     module_name = "toolchains_protoc",
-    version = "0.3.4",
+    version = "0.6.1",
 )
 
-bazel_dep(name = "grpc", version = "1.65.0")
+bazel_dep(name = "grpc", version = "1.76.0.bcr.1")
 
 # https://github.com/rules-proto-grpc/rules_proto_grpc/issues/341#issuecomment-2265154147
 single_version_override(
@@ -22,12 +24,12 @@ single_version_override(
     version = "1.64.0",
 )
 
-bazel_dep(name = "rules_python", version = "0.40.0")
+bazel_dep(name = "rules_python", version = "1.8.3")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(python_version = "3.11")
 
-bazel_dep(name = "rules_uv", version = "0.41.0")
+bazel_dep(name = "rules_uv", version = "0.89.2")
 
 dev_pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 dev_pip.parse(
@@ -45,4 +47,4 @@ register_toolchains(
 
 # For formatting rules
 bazel_dep(name = "aspect_rules_lint", version = "2.0.0")
-bazel_dep(name = "buildifier_prebuilt", version = "6.3.3")
+bazel_dep(name = "buildifier_prebuilt", version = "8.2.1.2")
