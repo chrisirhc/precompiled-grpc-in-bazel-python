@@ -15,43 +15,37 @@ import runpy
 
 
 def get_protoc_version():
-    """Get the protoc version from grpc_tools package metadata.
+    """Get the protoc version from grpcio_tools package.
     
-    The protoc version corresponds to the protobuf version bundled with grpcio-tools.
-    For example, protobuf 5.28.3 means protoc version 28.3.
+    The protoc version is obtained from grpc_version.VERSION in grpcio_tools.
+    For versions with 3 components (e.g., "5.28.3"), the first component is
+    discarded and the remaining components are used (28.3).
     
     Returns:
         tuple: (major, minor, patch) version numbers, or None if cannot determine
     """
     try:
-        # Try importlib.metadata first (Python 3.8+)
-        try:
-            from importlib.metadata import version
-            protobuf_version = version('protobuf')
-        except ImportError:
-            # Fallback to pkg_resources for older Python versions
-            import pkg_resources
-            protobuf_version = pkg_resources.get_distribution('protobuf').version
+        # Get version from grpc_tools.grpc_version
+        from grpc_tools import grpc_version
+        version_string = grpc_version.VERSION
         
-        # Parse version string like "5.28.3" or "28.3"
-        # The major version of protobuf 5.x.x corresponds to protoc 2x.x
-        # protobuf 5.28.3 -> protoc 28.3
-        version_match = re.match(r'^(\d+)\.(\d+)\.(\d+)', protobuf_version)
+        # Parse version string - can be "5.28.3", "28.3", "32.0.0", etc.
+        version_match = re.match(r'^(\d+)\.(\d+)(?:\.(\d+))?', version_string)
         if version_match:
-            major = int(version_match.group(1))
-            minor = int(version_match.group(2))
-            patch = int(version_match.group(3))
+            components = [int(g) for g in version_match.groups() if g is not None]
             
-            # Convert protobuf version to protoc version
-            # protobuf 5.x.y -> protoc 2x.y (e.g., 5.28.3 -> 28.3)
-            # protobuf 32.x.y -> protoc 32.x.y (future versions)
-            if major == 5:
-                protoc_major = minor
-                protoc_minor = patch
+            # If there are 3 components, discard the first one
+            # e.g., "5.28.3" -> use 28.3
+            # If there are 2 components, use as-is
+            # e.g., "28.3" -> use 28.3 or "32.0" -> use 32.0
+            if len(components) == 3:
+                protoc_major = components[1]
+                protoc_minor = components[2]
+            elif len(components) == 2:
+                protoc_major = components[0]
+                protoc_minor = components[1]
             else:
-                # For protobuf 32+, version matches directly
-                protoc_major = major
-                protoc_minor = minor
+                return None
             
             return (protoc_major, protoc_minor, 0)
     except Exception:
