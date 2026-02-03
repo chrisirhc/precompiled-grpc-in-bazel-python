@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_binary")
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
 
 # Wrapper that filters out unsupported protoc flags for legacy protoc versions
 py_binary(
@@ -8,4 +8,13 @@ py_binary(
     deps = [
         "@pypi//grpcio_tools",
     ],
+)
+
+py_test(
+    name = "main_test",
+    srcs = ["main_test.py"],
+    deps = [
+        "@pypi//grpcio_tools",
+    ],
+    data = [":main.py"],
 )
