@@ -14,44 +14,10 @@ import sys
 import runpy
 
 
-def get_protoc_version():
-    """Get the protoc version from grpcio_tools package.
-
-    The protoc version is obtained from grpc_version.VERSION in grpcio_tools.
-    For versions with 3 components (e.g., "5.28.3"), the first component is
-    discarded and the remaining components are used (28.3).
-
-    Returns:
-        tuple: (major, minor) version numbers
-
-    Raises:
-        ValueError: If the version string cannot be parsed
-    """
-    # Get version from grpc_tools.grpc_version
-    from grpc_tools import grpc_version
-    version_string = grpc_version.VERSION
-
-    # Parse version string - can be "5.28.3", "28.3", "32.0.0", etc.
-    version_split = version_string.split('.')
-    components = [int(component) for component in version_split]
-
-    # If there are 3 components, discard the first one
-    # e.g., "5.28.3" -> use 28.3
-    # If there are 2 components, use as-is
-    # e.g., "28.3" -> use 28.3 or "32.0" -> use 32.0
-    if len(components) == 3:
-        protoc_major = components[1]
-        protoc_minor = components[2]
-    elif len(components) == 2:
-        protoc_major = components[0]
-        protoc_minor = components[1]
-    else:
-        raise ValueError(f"Unexpected number of version components in: {version_string}")
-
-    return (protoc_major, protoc_minor)
+USING_LEGACY_PROTOC = False
 
 
-def filter_unsupported_flags(args, protoc_version):
+def filter_unsupported_flags(args, should_filter = USING_LEGACY_PROTOC):
     """Filter out flags not supported by the protoc version.
 
     Args:
@@ -61,8 +27,7 @@ def filter_unsupported_flags(args, protoc_version):
     Returns:
         Filtered list of arguments with unsupported flags removed if needed
     """
-    # If version is >= 32.0, don't filter
-    if protoc_version[0] >= 32:
+    if not should_filter:
         return args
 
     # Protoc version is below 32, filter out unsupported flags
