@@ -14,7 +14,7 @@ import sys
 import runpy
 
 
-USING_LEGACY_PROTOC = False
+USING_LEGACY_PROTOC = True
 
 
 def filter_unsupported_flags(args, should_filter = USING_LEGACY_PROTOC):
@@ -63,12 +63,9 @@ def filter_unsupported_flags(args, should_filter = USING_LEGACY_PROTOC):
 
 
 def main():
-    # Get protoc version
-    protoc_version = get_protoc_version()
-
     # Filter out unsupported flags from sys.argv if needed
     # sys.argv[0] is the script name, keep it
-    filtered_argv = [sys.argv[0]] + filter_unsupported_flags(sys.argv[1:], protoc_version)
+    filtered_argv = [sys.argv[0]] + filter_unsupported_flags(sys.argv[1:])
 
     # Replace sys.argv with filtered arguments
     sys.argv = filtered_argv
